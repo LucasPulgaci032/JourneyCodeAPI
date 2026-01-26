@@ -1,14 +1,21 @@
 import mongoose from "mongoose";
+import ValidationError from "../errors/validationError.js";
+import BadRequestError from "../errors/BadRequestError.js";
+import NotFoundError from "../errors/notFoundError.js";
+import ErroBase from "../errors/erroBase.js";
 
 export function middleError(error, req,res,next){
+
   if(error instanceof mongoose.Error.CastError){
-    res.status(400).send({message: "Um ou mais dados fornecidos estão incorretos"})
-  }else if(error instanceof mongoose.Error.ValidationError){
-    res.status(400).send({message: `${error.message}`})
-    // usado quando por exemplo um campo obrigatorio (required) não é fornecido
+   new BadRequestError().errorResponse(res)
+  }
+  else if(error instanceof mongoose.Error.ValidationError){
+    new ValidationError(error).errorResponse(res)
+  }else if(error instanceof NotFoundError){
+     error.errorResponse(res)
   }
   else{
-    res.status(500).send("Erro interno de servidor")
+    new ErroBase().errorResponse(res)
   }
 
 }
