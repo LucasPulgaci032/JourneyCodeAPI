@@ -1,12 +1,16 @@
 
-import RoadmapControllers from '../controllers/index.js'
-import express from 'express';
-
-const router = express.Router()
-
-router.get('/',RoadmapControllers.listData)
-router.get('/:id',RoadmapControllers.listDataId)
-router.post('/',RoadmapControllers.postData)
+import roadmapRouter from "./RoadmapRoutes.js";
+import topicsRouter from "./TopicsRoutes.js";
 
 
-export default router;
+const router = (app) => {
+    app.route('/').get((req,res) =>
+        res.status(200).send("funfou")
+    )
+   
+    app.use('/roadmaps',roadmapRouter)
+    app.use('/topics',topicsRouter)
+    
+}
+
+export default router
