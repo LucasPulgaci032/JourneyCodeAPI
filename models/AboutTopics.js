@@ -24,12 +24,7 @@ export const topic = new mongoose.Schema({
       domMann : {
         type: String,
        // required: true
-      },
-      topicsCode : [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "codes"
-      }]
-
+      }
       
 
 
