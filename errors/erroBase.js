@@ -1,6 +1,6 @@
 class ErroBase extends Error {
     constructor(msg = "Server error", status=500){
-        super()
+        super(msg)
         this.message = msg;
         this.status = status
     }

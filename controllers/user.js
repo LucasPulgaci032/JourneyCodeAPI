@@ -2,7 +2,7 @@ import { User } from "../models/userSchema.js"
 import { Topic } from "../models/topicSchema.js"
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
+
 
 
 class UserController{
@@ -56,22 +56,27 @@ static async validateUser(req,res,next){
   
   try{
   const {email,password} = req.body;
+
    if(!email || !password){
-    res.status(400).json({message: "Por favor, preencha todos os campos!"})
-    return
+    return res.status(400).json({message: "Por favor, preencha todos os campos!"})
+    
    }
   const user = await User.findOne({email})
    
   if(!user){
-    return res.status(404).json({message: "Usuário não encontrado"})
+    return res.status(401).json({message: "Usuário não encontrado"})
   }
   const validatePassword = await bcrypt.compare(password, user.password)
 
   if(!validatePassword) {
     return res.status(401).json({message: "Email ou senha incorretos"})
   }
-
-   res.status(200).json({message: "Login realizado"});
+   const token = jwt.sign(
+    { id: user._id},
+    process.env.SECRET_TOKEN,
+    {expiresIn : "1d"}
+  );
+   return res.status(200).json({token});
 }catch(error){
   next(error)
 }
