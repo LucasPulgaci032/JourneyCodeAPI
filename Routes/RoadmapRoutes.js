@@ -1,5 +1,5 @@
 
-import RoadmapControllers from '../controllers/index.js'
+import RoadmapControllers from '../controllers/roadmap.js'
 import express from 'express';
 
 const roadmapRouter = express.Router()
