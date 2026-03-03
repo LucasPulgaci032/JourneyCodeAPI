@@ -15,7 +15,7 @@ const roadmaps = new mongoose.Schema({
     },
     topics: [{
         type : mongoose.Schema.Types.ObjectId,
-        ref: "topics" ,
+        ref: "NewTopic" ,
         required: true,
         autopopulate : true
     }]
