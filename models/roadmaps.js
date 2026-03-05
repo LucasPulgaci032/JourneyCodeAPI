@@ -24,4 +24,3 @@ const roadmaps = new mongoose.Schema({
 )
 
 export const Roadmap = mongoose.model("roadmaps",roadmaps);
-//http://localhost:3000/roadmaps/language?name=JavaScript

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import autopopulate from 'mongoose-autopopulate'
+
 
 const userProgress = new mongoose.Schema({
    user : {
